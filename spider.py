@@ -38,7 +38,7 @@ def parse (imgHash, constant):
         tmp = h[p]
         h[p] = h[f]
         h[f] = tmp
-        result += chr(k[g] ^ (h[(h[p] + h[f]) % 256]))
+        result += chr(ord(k[g]) ^ (h[(h[p] + h[f]) % 256]))
     result = result[26:]
     
     return result
