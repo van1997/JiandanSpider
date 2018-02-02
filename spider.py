@@ -71,8 +71,9 @@ def getConstantAndHash():
     preUrl='http:'+page.select('.previous-comment-page')[0]['href']
     html=requests.get(preUrl,headers=headers).text
     
-    j=re.search(r'.*<script\ssrc=\"\/\/(cdn.jandan.net\/static\/min.*?)\"><\/script>.*',html)
-    jsFileUrl="http://"+j.group(1)
+    jsoup = BeautifulSoup(html, 'lxml')
+    j = jsoup.find('script', {'src':re.compile(r'\/\/cdn.jandan.net\/static\/min.*?')})
+    jsFileUrl = "http://" + j['src'][2:]
     jsFile=requests.get(jsFileUrl,headers=headers).text
 
     c=re.search(r'.*f_\w+\(e,\"(\w+)\".*',jsFile)
